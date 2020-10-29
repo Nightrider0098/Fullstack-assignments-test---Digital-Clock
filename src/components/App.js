@@ -30,7 +30,9 @@ const App = () => {
     return () => clearInterval(setintervalID);
   })
   return (
+    <div>
     <h3 id='time'>{time}</h3>
+    </div>
   )
 }
 
