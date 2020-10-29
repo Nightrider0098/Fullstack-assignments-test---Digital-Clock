@@ -2,29 +2,40 @@ import React, { Component, useState, useEffect } from "react";
 import { render } from "react-dom";
 import '../styles/App.css';
 
-const App = () => {
+class App extends Component {
 
-  let cDate = new Date;
-  var [time, setTime] = useState(cDate.toLocaleTimeString());
+  constructor(props) {
+    super(props)
 
+    this.state = {
+      time:'',
+      intervalID:''
+    }
+    this.updatetime = this.updatetime.bind(this)
+  }
 
-  let setintervalID;
+  componentDidMount() {
+    this.setState({
+      time: (new Date).toLocaleTimeString(), intervalID: setInterval(() => {
+        this.updatetime();
+      }, 1000)
+    })
+  }
 
-  useEffect(() => {
-    let setintervalID = setInterval(() => {
-      const cDate = new Date;
-      let renderString = cDate.toLocaleTimeString()
-      setTime(renderString)
-    }, 1000);
-
-    return () => clearInterval(setintervalID);
-  })
-  return (
-    <div>
-    <h3 id='time'>{time}</h3>
-    </div>
-  )
+  updatetime() {
+    this.setState({ time: (new Date).toLocaleTimeString() })
+  }
+  componentWillUnmount() {
+    clearInterval(this.state.intervalID)
+  }
+  render() {
+    return (
+      <div>
+        <h3 id='time'>{this.state.time}</h3>
+      </div>
+    )
+  }
 }
 
+export default App
 
-export default App;
