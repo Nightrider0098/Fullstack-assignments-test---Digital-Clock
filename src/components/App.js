@@ -5,12 +5,7 @@ import '../styles/App.css';
 const App = () => {
 
   let cDate = new Date;
-  let renderString = "" + cDate.getHours() % 12 + ":" + cDate.getMinutes() + ":" + cDate.getMilliseconds() % 100 + " "
-  if (cDate.getHours() % 12)
-    renderString += 'AM'
-  else
-    renderString += 'PM'
-  var [time, setTime] = useState(renderString);
+  var [time, setTime] = useState(cDate.toLocaleTimeString());
 
 
   let setintervalID;
@@ -18,13 +13,8 @@ const App = () => {
   useEffect(() => {
     let setintervalID = setInterval(() => {
       const cDate = new Date;
-      let renderString = "" + cDate.getHours() % 12 + ":" + cDate.getMinutes() + ":" + cDate.getMilliseconds() % 100 + " "
-      if (cDate.getHours() % 12)
-        renderString += 'AM'
-      else
-        renderString += 'PM'
+      let renderString = cDate.toLocaleTimeString()
       setTime(renderString)
-      // alert(cDate+renderString+'ites')
     }, 1000);
 
     return () => clearInterval(setintervalID);
